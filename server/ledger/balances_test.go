@@ -166,7 +166,7 @@ func TestFundBalanceReconciliation(t *testing.T) {
 			PostedBy:  1,
 			Lines: []NewLine{
 				{AccountID: fx.CashAccountID, FundID: fx.FundAID, DebitAmount: 30000, CreditAmount: 0},
-				{AccountID: fx.RevenueAccountID, FundID: fx.FundAID, DebitAmount: 0, CreditAmount: 30000},
+				{AccountID: fx.RevenueAccountID, FundID: fx.FundBID, DebitAmount: 0, CreditAmount: 30000},
 			},
 		})
 		if err != nil {
