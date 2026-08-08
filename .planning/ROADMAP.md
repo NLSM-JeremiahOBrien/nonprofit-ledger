@@ -15,7 +15,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [ ] **Phase 1: Core Ledger & Fund-Accounting Data Model** - Immutable double-entry GL with fund and functional-expense dimensions as first-class citizens
 - [ ] **Phase 2: Auth, RBAC & Backup/DR Foundations** - Scoped user roles, audit logging, automated backups, and no-telemetry-by-default trust guarantees
 - [ ] **Phase 3: Bundled Secure Remote Access** - Zero-config remote login for external accountants, layered on finalized RBAC
-- [ ] **Phase 4: Import-Adapter Framework + QuickBooks Adapters** - Idempotent, previewable import of QuickBooks Desktop and Online data via a documented adapter interface
+- [ ] **Phase 4: Import-Adapter Framework + QuickBooks & CiviCRM Adapters** - Idempotent, previewable import of QuickBooks Desktop/Online data and CiviCRM contribution batches via a documented adapter interface
 - [ ] **Phase 5: Reconciliation & Parallel-Run Reporting** - Comparison reporting to validate this system's books against live QuickBooks
 - [ ] **Phase 6: AR/AP, Bank Reconciliation, Grants & Financial Statements** - Receivables/payables, bank matching, grant spend-down tracking, and 990-ready statements
 - [ ] **Phase 7: PWA Client & Offline Shell** - Installable app shell usable through brief network interruptions
@@ -56,15 +56,16 @@ Decimal phases appear between their surrounding integers in numeric order.
   3. Admin can see currently-connected remote sessions and revoke a remote user's access immediately
 **Plans**: TBD
 
-### Phase 4: Import-Adapter Framework + QuickBooks Adapters
-**Goal**: Users can bring existing QuickBooks Desktop and Online data into the system reliably, repeatedly, and safely, with a clean path for future import sources.
+### Phase 4: Import-Adapter Framework + QuickBooks & CiviCRM Adapters
+**Goal**: Users can bring existing QuickBooks Desktop/Online data and CiviCRM contribution revenue into the system reliably, repeatedly, and safely, with a clean path for future import sources.
 **Depends on**: Phase 1, Phase 2
-**Requirements**: IMPT-01, IMPT-02, IMPT-03, IMPT-04
+**Requirements**: IMPT-01, IMPT-02, IMPT-03, IMPT-04, CIVI-01, CIVI-02, CIVI-03
 **Success Criteria** (what must be TRUE):
   1. User can import a QuickBooks Desktop export (IIF and/or QBXML) and preview mapped transactions before committing
   2. User can import a QuickBooks Online export (QBO/CSV) and preview mapped transactions before committing
-  3. Re-running an import with overlapping data does not create duplicate transactions
-  4. A new import source can be added against a documented adapter interface without modifying core ledger code
+  3. User can import a CiviCRM contribution/revenue batch export as GL deposit transactions mapped to the correct fund and account
+  4. Re-running an import (QuickBooks or CiviCRM) with overlapping data does not create duplicate transactions
+  5. A new import source can be added against a documented adapter interface without modifying core ledger code
 **Plans**: TBD
 
 ### Phase 5: Reconciliation & Parallel-Run Reporting
@@ -107,7 +108,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 | 1. Core Ledger & Fund-Accounting Data Model | 0/TBD | Not started | - |
 | 2. Auth, RBAC & Backup/DR Foundations | 0/TBD | Not started | - |
 | 3. Bundled Secure Remote Access | 0/TBD | Not started | - |
-| 4. Import-Adapter Framework + QuickBooks Adapters | 0/TBD | Not started | - |
+| 4. Import-Adapter Framework + QuickBooks & CiviCRM Adapters | 0/TBD | Not started | - |
 | 5. Reconciliation & Parallel-Run Reporting | 0/TBD | Not started | - |
 | 6. AR/AP, Bank Reconciliation, Grants & Financial Statements | 0/TBD | Not started | - |
 | 7. PWA Client & Offline Shell | 0/TBD | Not started | - |

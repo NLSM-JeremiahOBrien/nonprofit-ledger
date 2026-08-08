@@ -31,7 +31,8 @@ Nonprofit financial data — funds, grants, restricted/unrestricted balances, tr
 - [ ] Re-importable / incremental import support so the app can run in parallel with a live QuickBooks instance during a transition period (not just one-shot migration)
 - [ ] Reconciliation/comparison tooling to verify parity between this system's books and QuickBooks during the parallel-run period
 - [ ] Local data storage only — no telemetry, no cloud sync of financial data by default
-- [ ] Open-source license (to be selected during research/requirements)
+- [x] Open-source license: AGPL-3.0 — chosen specifically to close the SaaS loophole (prevents someone hosting a modified version as a service without contributing changes back), consistent with the anti-vendor-lock-in Core Value. Does not burden self-hosting orgs like O'Brien, since internal use isn't "distribution" under AGPL.
+- [ ] Full CiviCRM integration: import CiviCRM contribution/revenue batches as GL deposits, built on the same import-adapter interface as QuickBooks (see CIVI-01..03 in REQUIREMENTS.md, mapped to Phase 4). Donor/contact management stays in CiviCRM — this is revenue-transaction import only, not a CRM rebuild.
 
 ### Out of Scope
 
@@ -65,6 +66,8 @@ Nonprofit financial data — funds, grants, restricted/unrestricted balances, tr
 | Full fund accounting (not basic bookkeeping) for v1 | This is the real bar for replacing QuickBooks Desktop for a 990-filing nonprofit | — Pending |
 | SS Jeremiah O'Brien as pilot deployment, built against real data | Gives a concrete production target instead of designing in the abstract; de-risks generalization later | — Pending |
 | Support parallel-run against live QuickBooks (incremental re-import + reconciliation) | Org wants to validate the new system before fully cutting over, not do a risky one-shot migration | — Pending |
+| AGPL-3.0 license | Closes the SaaS loophole (no re-hosting as a closed service) without burdening self-hosters; matches the no-vendor-lock-in Core Value | — Pending |
+| Full CiviCRM integration via the import-adapter framework | O'Brien already runs CiviCRM for donor/membership management; revenue data should flow in without manual re-entry, but CRM itself stays out of scope to avoid duplicating a system of record | — Pending |
 
 ---
 *Last updated: 2026-08-08 after initialization*

@@ -56,6 +56,12 @@
 - [ ] **IMPT-03**: Re-running an import with overlapping data does not create duplicate transactions (idempotent import keyed on stable external identifiers)
 - [ ] **IMPT-04**: Import adapters are built against a documented internal interface so a new source (e.g. Xero, Wave) can be added without modifying core ledger code
 
+### Integration — CiviCRM
+
+- [ ] **CIVI-01**: User can import CiviCRM contribution/revenue batch exports as GL deposit transactions, mapped to the correct fund and account
+- [ ] **CIVI-02**: CiviCRM contact and contribution IDs are preserved as external references on imported transactions, so re-importing a batch does not create duplicate revenue entries
+- [ ] **CIVI-03**: CiviCRM adapter is built against the same import-adapter interface as the QuickBooks adapters (IMPT-04), not a one-off integration
+
 ### Parallel-Run Reconciliation
 
 - [ ] **RECN-01**: User can run a comparison report between this system's ledger and the most recent QuickBooks import, highlighting transactions present in one system but not the other
@@ -143,12 +149,17 @@ Which phases cover which requirements. Updated during roadmap creation.
 | STMT-04 | Phase 6 | Pending |
 | STMT-05 | Phase 6 | Pending |
 | PLAT-02 | Phase 7 | Pending |
+| CIVI-01 | Phase 4 | Pending |
+| CIVI-02 | Phase 4 | Pending |
+| CIVI-03 | Phase 4 | Pending |
 
 **Coverage:**
-- v1 requirements: 36 total
-- Mapped to phases: 36
+- v1 requirements: 39 total
+- Mapped to phases: 39
 - Unmapped: 0 ✓
+
+**Note:** CIVI-01..03 (CiviCRM integration) added 2026-08-08 after initial roadmap creation, per explicit request that this system fully integrate with CiviCRM (which O'Brien already runs for donor/membership management). These reuse the same import-adapter architecture as the QuickBooks adapters (IMPT-04) and are mapped into Phase 4 (Import-Adapter Framework + QuickBooks Adapters) as an additional adapter on the same interface, rather than a new phase. Scope is revenue-transaction import only (contribution batches → GL deposits) — donor/contact management itself remains CiviCRM's job, per the Out of Scope decision against duplicating CRM features.
 
 ---
 *Requirements defined: 2026-08-08*
-*Last updated: 2026-08-08 after initial definition*
+*Last updated: 2026-08-08 after adding CiviCRM integration requirements*
