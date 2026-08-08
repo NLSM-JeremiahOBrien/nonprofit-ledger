@@ -16,7 +16,7 @@
 ### Fund Accounting
 
 - [x] **FUND-01**: User can create funds classified per current FASB ASC 958 net-asset categories (with donor restrictions / without donor restrictions)
-- [ ] **FUND-02**: User can view real-time balance for any individual fund, and fund balances reconcile to the GL total
+- [x] **FUND-02**: User can view real-time balance for any individual fund, and fund balances reconcile to the GL total
 - [x] **FUND-03**: User can allocate expense transactions across functional categories (program / management & general / fundraising)
 - [ ] **FUND-04**: User can create a grant record (funder, award amount, reporting period) linked to a restricted fund and track spend-down against the award
 
@@ -69,7 +69,7 @@
 
 ### Platform
 
-- [ ] **PLAT-01**: The application runs as a local webserver on the organization's own hardware, with no required outbound dependency on a third-party cloud service for core accounting functions
+- [x] **PLAT-01**: The application runs as a local webserver on the organization's own hardware, with no required outbound dependency on a third-party cloud service for core accounting functions
 - [ ] **PLAT-02**: The application is installable as a PWA and remains usable (viewing data, drafting entries) during brief network interruptions to the local server
 - [ ] **PLAT-03**: The application performs automated local backups on a schedule, with visible backup health status and a documented, tested restore procedure
 - [ ] **PLAT-04**: The application does not transmit financial data or usage telemetry to any third party by default
@@ -119,9 +119,9 @@ Which phases cover which requirements. Updated during roadmap creation.
 | LEDG-04 | Phase 1 | Complete |
 | LEDG-05 | Phase 1 | Complete |
 | FUND-01 | Phase 1 | Complete |
-| FUND-02 | Phase 1 | Pending |
+| FUND-02 | Phase 1 | Complete |
 | FUND-03 | Phase 1 | Complete |
-| PLAT-01 | Phase 1 | Pending |
+| PLAT-01 | Phase 1 | Complete |
 | AUTH-01 | Phase 2 | Pending |
 | AUTH-02 | Phase 2 | Pending |
 | AUTH-03 | Phase 2 | Pending |

@@ -12,7 +12,7 @@ Nonprofit Ledger is built from the ground up: an immutable, fund-aware general l
 
 Decimal phases appear between their surrounding integers in numeric order.
 
-- [ ] **Phase 1: Core Ledger & Fund-Accounting Data Model** - Immutable double-entry GL with fund and functional-expense dimensions as first-class citizens
+- [x] **Phase 1: Core Ledger & Fund-Accounting Data Model** - Immutable double-entry GL with fund and functional-expense dimensions as first-class citizens (completed 2026-08-08)
 - [ ] **Phase 2: Auth, RBAC & Backup/DR Foundations** - Scoped user roles, audit logging, automated backups, and no-telemetry-by-default trust guarantees
 - [ ] **Phase 3: Bundled Secure Remote Access** - Zero-config remote login for external accountants, layered on finalized RBAC
 - [ ] **Phase 4: Import-Adapter Framework + QuickBooks & CiviCRM Adapters** - Idempotent, previewable import of QuickBooks Desktop/Online data and CiviCRM contribution batches via a documented adapter interface
@@ -32,13 +32,13 @@ Decimal phases appear between their surrounding integers in numeric order.
   3. A posted transaction cannot be edited or deleted — corrections happen only via reversing/adjusting entries
   4. User can close/lock an accounting period so transactions before that date can no longer be altered
   5. User can view real-time balance for any fund, and fund balances always reconcile to the GL total, with the app running entirely as a local webserver with no required third-party cloud dependency
-**Plans**: 4 plans
+**Plans**: 4/4 plans complete
 
 Plans:
-- [ ] 01-01-PLAN.md — Scaffold Go module + SQLite foundation; chart-of-accounts and funds schema/domain (LEDG-01, FUND-01)
-- [ ] 01-02-PLAN.md — Append-only journal schema, immutability triggers, reversing-entry correction (LEDG-03, LEDG-05)
-- [ ] 01-03-PLAN.md — PostJournalEntry: balance validation, period lock, functional expense category (LEDG-02, LEDG-04, FUND-03)
-- [ ] 01-04-PLAN.md — Derived fund/GL balances, minimal local webserver, PLAT-01 offline smoke test (FUND-02, PLAT-01)
+- [x] 01-01-PLAN.md — Scaffold Go module + SQLite foundation; chart-of-accounts and funds schema/domain (LEDG-01, FUND-01)
+- [x] 01-02-PLAN.md — Append-only journal schema, immutability triggers, reversing-entry correction (LEDG-03, LEDG-05)
+- [x] 01-03-PLAN.md — PostJournalEntry: balance validation, period lock, functional expense category (LEDG-02, LEDG-04, FUND-03)
+- [x] 01-04-PLAN.md — Derived fund/GL balances, minimal local webserver, PLAT-01 offline smoke test (FUND-02, PLAT-01)
 
 ### Phase 2: Auth, RBAC & Backup/DR Foundations
 **Goal**: Users can securely log in with scoped roles, every action is attributable, and the organization's sole financial record is protected by automated, verifiable backups — all before real financial data enters the system.
@@ -111,7 +111,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Core Ledger & Fund-Accounting Data Model | 2/4 | In Progress|  |
+| 1. Core Ledger & Fund-Accounting Data Model | 4/4 | Complete   | 2026-08-08 |
 | 2. Auth, RBAC & Backup/DR Foundations | 0/TBD | Not started | - |
 | 3. Bundled Secure Remote Access | 0/TBD | Not started | - |
 | 4. Import-Adapter Framework + QuickBooks & CiviCRM Adapters | 0/TBD | Not started | - |
