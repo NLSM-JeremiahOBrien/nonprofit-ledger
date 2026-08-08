@@ -107,12 +107,47 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| (populated by roadmap creation) | | Pending |
+| LEDG-01 | Phase 1 | Pending |
+| LEDG-02 | Phase 1 | Pending |
+| LEDG-03 | Phase 1 | Pending |
+| LEDG-04 | Phase 1 | Pending |
+| LEDG-05 | Phase 1 | Pending |
+| FUND-01 | Phase 1 | Pending |
+| FUND-02 | Phase 1 | Pending |
+| FUND-03 | Phase 1 | Pending |
+| PLAT-01 | Phase 1 | Pending |
+| AUTH-01 | Phase 2 | Pending |
+| AUTH-02 | Phase 2 | Pending |
+| AUTH-03 | Phase 2 | Pending |
+| AUTH-04 | Phase 2 | Pending |
+| AUTH-05 | Phase 2 | Pending |
+| PLAT-03 | Phase 2 | Pending |
+| PLAT-04 | Phase 2 | Pending |
+| REMT-01 | Phase 3 | Pending |
+| REMT-02 | Phase 3 | Pending |
+| REMT-03 | Phase 3 | Pending |
+| IMPT-01 | Phase 4 | Pending |
+| IMPT-02 | Phase 4 | Pending |
+| IMPT-03 | Phase 4 | Pending |
+| IMPT-04 | Phase 4 | Pending |
+| RECN-01 | Phase 5 | Pending |
+| RECN-02 | Phase 5 | Pending |
+| BANK-01 | Phase 6 | Pending |
+| BANK-02 | Phase 6 | Pending |
+| BANK-03 | Phase 6 | Pending |
+| BANK-04 | Phase 6 | Pending |
+| FUND-04 | Phase 6 | Pending |
+| STMT-01 | Phase 6 | Pending |
+| STMT-02 | Phase 6 | Pending |
+| STMT-03 | Phase 6 | Pending |
+| STMT-04 | Phase 6 | Pending |
+| STMT-05 | Phase 6 | Pending |
+| PLAT-02 | Phase 7 | Pending |
 
 **Coverage:**
-- v1 requirements: 30 total
-- Mapped to phases: 0
-- Unmapped: 30 ⚠️ (pending roadmap)
+- v1 requirements: 36 total
+- Mapped to phases: 36
+- Unmapped: 0 ✓
 
 ---
 *Requirements defined: 2026-08-08*
