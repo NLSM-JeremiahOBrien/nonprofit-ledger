@@ -1,3 +1,19 @@
+---
+gsd_state_version: 1.0
+milestone: v1.0
+milestone_name: milestone
+status: executing
+stopped_at: Completed 01-01-PLAN.md
+last_updated: "2026-08-08T19:25:01.003Z"
+last_activity: "2026-08-08 — Plan 01-01 complete: Go module scaffold, chart of accounts, and funds schema"
+progress:
+  total_phases: 7
+  completed_phases: 0
+  total_plans: 4
+  completed_plans: 1
+  percent: 25
+---
+
 # Project State
 
 ## Project Reference
@@ -10,11 +26,11 @@ See: .planning/PROJECT.md (updated 2026-08-08)
 ## Current Position
 
 Phase: 1 of 7 (Core Ledger & Fund-Accounting Data Model)
-Plan: None yet
-Status: Ready to plan
-Last activity: 2026-08-08 — Roadmap created, 36/36 v1 requirements mapped across 7 phases
+Plan: 01 of 4 complete
+Status: In progress
+Last activity: 2026-08-08 — Plan 01-01 complete: Go module scaffold, chart of accounts, and funds schema
 
-Progress: [░░░░░░░░░░] 0%
+Progress: [███░░░░░░░] 25%
 
 ## Performance Metrics
 
@@ -34,6 +50,7 @@ Progress: [░░░░░░░░░░] 0%
 - Trend: -
 
 *Updated after each plan completion*
+| Phase 01 P01 | 20 | 3 tasks | 12 files |
 
 ## Accumulated Context
 
@@ -45,6 +62,7 @@ Recent decisions affecting current work:
 - Phase order chosen goal-backward: ledger schema first (hardest to retrofit), then auth/RBAC + backup before real O'Brien data enters the system, then remote access on top of finalized RBAC, then import/reconciliation, then AR/AP + statements, then PWA shell last.
 - Grant tracking (FUND-04) grouped with Phase 6 (AR/AP/statements) rather than Phase 1, since it's a reporting/tracking feature best delivered alongside financial statements.
 - PLAT-01 (local webserver, no cloud dependency) assigned to Phase 1 as foundational; PLAT-03/PLAT-04 (backups, no telemetry) assigned to Phase 2 as trust-boundary concerns; PLAT-02 (PWA/offline) assigned to Phase 7.
+- [Phase 01]: Go 1.26.5 installed via Homebrew (host had no Go); FASB ASC 958 two-category net-asset model enforced both in SQL CHECK and Go-side validation, deprecated three-category model rejected outright
 
 ### Pending Todos
 
@@ -59,6 +77,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-08-08
-Stopped at: Roadmap created and written to disk; awaiting user approval before planning Phase 1
+Last session: 2026-08-08T19:25:01.000Z
+Stopped at: Completed 01-01-PLAN.md
 Resume file: None

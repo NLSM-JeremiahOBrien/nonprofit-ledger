@@ -7,7 +7,7 @@
 
 ### Ledger (GL)
 
-- [ ] **LEDG-01**: User can define a customizable chart of accounts (asset/liability/equity/revenue/expense types, parent/sub-account hierarchy, active/inactive flags)
+- [x] **LEDG-01**: User can define a customizable chart of accounts (asset/liability/equity/revenue/expense types, parent/sub-account hierarchy, active/inactive flags)
 - [ ] **LEDG-02**: User can post double-entry journal transactions that must balance (debits = credits) before posting
 - [ ] **LEDG-03**: Posted transactions are immutable — corrections are made via reversing/adjusting entries, never destructive edit or delete
 - [ ] **LEDG-04**: User can close/lock an accounting period so posted transactions before that date can no longer be altered
@@ -15,7 +15,7 @@
 
 ### Fund Accounting
 
-- [ ] **FUND-01**: User can create funds classified per current FASB ASC 958 net-asset categories (with donor restrictions / without donor restrictions)
+- [x] **FUND-01**: User can create funds classified per current FASB ASC 958 net-asset categories (with donor restrictions / without donor restrictions)
 - [ ] **FUND-02**: User can view real-time balance for any individual fund, and fund balances reconcile to the GL total
 - [ ] **FUND-03**: User can allocate expense transactions across functional categories (program / management & general / fundraising)
 - [ ] **FUND-04**: User can create a grant record (funder, award amount, reporting period) linked to a restricted fund and track spend-down against the award
@@ -113,12 +113,12 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| LEDG-01 | Phase 1 | Pending |
+| LEDG-01 | Phase 1 | Complete |
 | LEDG-02 | Phase 1 | Pending |
 | LEDG-03 | Phase 1 | Pending |
 | LEDG-04 | Phase 1 | Pending |
 | LEDG-05 | Phase 1 | Pending |
-| FUND-01 | Phase 1 | Pending |
+| FUND-01 | Phase 1 | Complete |
 | FUND-02 | Phase 1 | Pending |
 | FUND-03 | Phase 1 | Pending |
 | PLAT-01 | Phase 1 | Pending |
