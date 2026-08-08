@@ -111,7 +111,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Core Ledger & Fund-Accounting Data Model | 1/4 | In Progress|  |
+| 1. Core Ledger & Fund-Accounting Data Model | 2/4 | In Progress|  |
 | 2. Auth, RBAC & Backup/DR Foundations | 0/TBD | Not started | - |
 | 3. Bundled Secure Remote Access | 0/TBD | Not started | - |
 | 4. Import-Adapter Framework + QuickBooks & CiviCRM Adapters | 0/TBD | Not started | - |

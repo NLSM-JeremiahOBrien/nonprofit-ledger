@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 01-01-PLAN.md
-last_updated: "2026-08-08T19:25:01.003Z"
-last_activity: "2026-08-08 — Plan 01-01 complete: Go module scaffold, chart of accounts, and funds schema"
+stopped_at: Completed 01-02-PLAN.md
+last_updated: "2026-08-08T19:29:33.457Z"
+last_activity: "2026-08-08 — Plan 01-02 complete: append-only journal schema, immutability triggers, ReverseJournalEntry"
 progress:
   total_phases: 7
   completed_phases: 0
   total_plans: 4
-  completed_plans: 1
-  percent: 25
+  completed_plans: 2
+  percent: 50
 ---
 
 # Project State
@@ -26,11 +26,11 @@ See: .planning/PROJECT.md (updated 2026-08-08)
 ## Current Position
 
 Phase: 1 of 7 (Core Ledger & Fund-Accounting Data Model)
-Plan: 01 of 4 complete
+Plan: 02 of 4 complete
 Status: In progress
-Last activity: 2026-08-08 — Plan 01-01 complete: Go module scaffold, chart of accounts, and funds schema
+Last activity: 2026-08-08 — Plan 01-02 complete: append-only journal schema, immutability triggers, ReverseJournalEntry
 
-Progress: [███░░░░░░░] 25%
+Progress: [█████░░░░░] 50%
 
 ## Performance Metrics
 
@@ -51,6 +51,7 @@ Progress: [███░░░░░░░] 25%
 
 *Updated after each plan completion*
 | Phase 01 P01 | 20 | 3 tasks | 12 files |
+| Phase 01 P02 | 15 | 2 tasks | 5 files |
 
 ## Accumulated Context
 
@@ -63,6 +64,7 @@ Recent decisions affecting current work:
 - Grant tracking (FUND-04) grouped with Phase 6 (AR/AP/statements) rather than Phase 1, since it's a reporting/tracking feature best delivered alongside financial statements.
 - PLAT-01 (local webserver, no cloud dependency) assigned to Phase 1 as foundational; PLAT-03/PLAT-04 (backups, no telemetry) assigned to Phase 2 as trust-boundary concerns; PLAT-02 (PWA/offline) assigned to Phase 7.
 - [Phase 01]: Go 1.26.5 installed via Homebrew (host had no Go); FASB ASC 958 two-category net-asset model enforced both in SQL CHECK and Go-side validation, deprecated three-category model rejected outright
+- [Phase 01-core-ledger-fund-accounting-data-model]: [Phase 01]: Immutability enforced at SQLite trigger layer (paired BEFORE UPDATE/BEFORE DELETE, one DML event per trigger); ReverseJournalEntry is the sole correction mechanism, never UPDATE/DELETE on posted rows
 
 ### Pending Todos
 
@@ -77,6 +79,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-08-08T19:25:01.000Z
-Stopped at: Completed 01-01-PLAN.md
+Last session: 2026-08-08T19:29:17.038Z
+Stopped at: Completed 01-02-PLAN.md
 Resume file: None

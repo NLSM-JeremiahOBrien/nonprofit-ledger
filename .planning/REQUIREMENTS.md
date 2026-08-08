@@ -9,9 +9,9 @@
 
 - [x] **LEDG-01**: User can define a customizable chart of accounts (asset/liability/equity/revenue/expense types, parent/sub-account hierarchy, active/inactive flags)
 - [ ] **LEDG-02**: User can post double-entry journal transactions that must balance (debits = credits) before posting
-- [ ] **LEDG-03**: Posted transactions are immutable — corrections are made via reversing/adjusting entries, never destructive edit or delete
+- [x] **LEDG-03**: Posted transactions are immutable — corrections are made via reversing/adjusting entries, never destructive edit or delete
 - [ ] **LEDG-04**: User can close/lock an accounting period so posted transactions before that date can no longer be altered
-- [ ] **LEDG-05**: Every transaction line carries a fund dimension (not just an account), so fund-level balances can always be derived from the ledger
+- [x] **LEDG-05**: Every transaction line carries a fund dimension (not just an account), so fund-level balances can always be derived from the ledger
 
 ### Fund Accounting
 
@@ -115,9 +115,9 @@ Which phases cover which requirements. Updated during roadmap creation.
 |-------------|-------|--------|
 | LEDG-01 | Phase 1 | Complete |
 | LEDG-02 | Phase 1 | Pending |
-| LEDG-03 | Phase 1 | Pending |
+| LEDG-03 | Phase 1 | Complete |
 | LEDG-04 | Phase 1 | Pending |
-| LEDG-05 | Phase 1 | Pending |
+| LEDG-05 | Phase 1 | Complete |
 | FUND-01 | Phase 1 | Complete |
 | FUND-02 | Phase 1 | Pending |
 | FUND-03 | Phase 1 | Pending |
