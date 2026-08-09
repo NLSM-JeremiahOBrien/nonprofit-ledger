@@ -7,6 +7,7 @@ import (
 	"testing"
 
 	"github.com/tjcrowley/nonprofit-ledger/server/db"
+	"github.com/tjcrowley/nonprofit-ledger/server/ledger"
 )
 
 // TestSnapshot verifies that Snapshot, backed by VACUUM INTO, captures
@@ -157,5 +158,95 @@ func TestRunScheduledRecordsFailure(t *testing.T) {
 	}
 	if !errMsg.Valid || errMsg.String == "" {
 		t.Fatal("expected error message to be recorded")
+	}
+}
+
+// TestRestoreRoundTrip verifies that a snapshot taken of a DB with
+// posted, balanced journal entries across multiple funds can be
+// restored, passes PRAGMA integrity_check, and reproduces the exact
+// same trial balance as the source database. This is the PLAT-03
+// requirement that the restore path is proven, not just documented.
+func TestRestoreRoundTrip(t *testing.T) {
+	conn, _ := newTestDB(t)
+
+	cashID, err := ledger.CreateAccount(conn, ledger.NewAccount{Code: "1000", Name: "Cash", Type: "asset"})
+	if err != nil {
+		t.Fatalf("CreateAccount(cash): %v", err)
+	}
+	revenueID, err := ledger.CreateAccount(conn, ledger.NewAccount{Code: "4000", Name: "Contributions", Type: "revenue"})
+	if err != nil {
+		t.Fatalf("CreateAccount(revenue): %v", err)
+	}
+
+	fundAID, err := ledger.CreateFund(conn, ledger.NewFund{Code: "GEN", Name: "General Fund", NetAssetClass: "without_donor_restrictions"})
+	if err != nil {
+		t.Fatalf("CreateFund(A): %v", err)
+	}
+	fundBID, err := ledger.CreateFund(conn, ledger.NewFund{Code: "REST", Name: "Restricted Fund", NetAssetClass: "with_donor_restrictions"})
+	if err != nil {
+		t.Fatalf("CreateFund(B): %v", err)
+	}
+
+	if _, err := ledger.PostJournalEntry(conn, ledger.NewEntry{
+		EntryDate: "2026-07-01",
+		Memo:      "donation to general fund",
+		PostedBy:  1,
+		Lines: []ledger.NewLine{
+			{AccountID: cashID, FundID: fundAID, DebitAmount: 50000, CreditAmount: 0},
+			{AccountID: revenueID, FundID: fundAID, DebitAmount: 0, CreditAmount: 50000},
+		},
+	}); err != nil {
+		t.Fatalf("PostJournalEntry (fund A): %v", err)
+	}
+
+	if _, err := ledger.PostJournalEntry(conn, ledger.NewEntry{
+		EntryDate: "2026-07-02",
+		Memo:      "donation to restricted fund",
+		PostedBy:  1,
+		Lines: []ledger.NewLine{
+			{AccountID: cashID, FundID: fundBID, DebitAmount: 20000, CreditAmount: 0},
+			{AccountID: revenueID, FundID: fundBID, DebitAmount: 0, CreditAmount: 20000},
+		},
+	}); err != nil {
+		t.Fatalf("PostJournalEntry (fund B): %v", err)
+	}
+
+	wantTrialBalance, err := ledger.TrialBalance(conn)
+	if err != nil {
+		t.Fatalf("TrialBalance (source): %v", err)
+	}
+
+	snapshotPath := filepath.Join(t.TempDir(), "snapshot.db")
+	if err := Snapshot(conn, snapshotPath); err != nil {
+		t.Fatalf("Snapshot: %v", err)
+	}
+
+	restoredPath := filepath.Join(t.TempDir(), "restored.db")
+	restoredConn, err := Restore(snapshotPath, restoredPath)
+	if err != nil {
+		t.Fatalf("Restore: %v", err)
+	}
+	defer restoredConn.Close()
+
+	gotTrialBalance, err := ledger.TrialBalance(restoredConn)
+	if err != nil {
+		t.Fatalf("TrialBalance (restored): %v", err)
+	}
+
+	if len(gotTrialBalance) != len(wantTrialBalance) {
+		t.Fatalf("restored trial balance has %d rows, want %d", len(gotTrialBalance), len(wantTrialBalance))
+	}
+	for i := range wantTrialBalance {
+		if gotTrialBalance[i] != wantTrialBalance[i] {
+			t.Fatalf("restored trial balance row %d = %+v, want %+v", i, gotTrialBalance[i], wantTrialBalance[i])
+		}
+	}
+
+	var total int64
+	for _, row := range gotTrialBalance {
+		total += row.Balance
+	}
+	if total != 0 {
+		t.Fatalf("restored trial balance sums to %d, want 0", total)
 	}
 }

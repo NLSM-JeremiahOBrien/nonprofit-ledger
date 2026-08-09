@@ -29,6 +29,16 @@ func newTestDB(t *testing.T) (*sql.DB, string) {
 		t.Fatalf("newTestDB: run migrations: %v", err)
 	}
 
+	// journal_entries.posted_by and audit_log.actor_user_id both carry a
+	// foreign key to users(id); seed a user row so posting fixtures used
+	// by restore round-trip tests can reference user ID 1.
+	if _, err := conn.Exec(
+		`INSERT INTO users (id, username, password_hash, role) VALUES (1, 'seed-user', 'not-a-real-hash', 'admin')`,
+	); err != nil {
+		conn.Close()
+		t.Fatalf("newTestDB: seed user 1: %v", err)
+	}
+
 	t.Cleanup(func() {
 		conn.Close()
 	})

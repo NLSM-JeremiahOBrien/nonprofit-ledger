@@ -33,7 +33,7 @@ func setupFullRouteServer(t *testing.T) (*httptest.Server, func(username string)
 	sm := auth.NewSessionManager(conn)
 
 	mux := http.NewServeMux()
-	api.RegisterRoutes(mux, sm, conn)
+	api.RegisterRoutes(mux, sm, conn, t.TempDir())
 
 	// A login endpoint outside RequireAuth purely for test setup: it
 	// starts a session for the given username without needing to go

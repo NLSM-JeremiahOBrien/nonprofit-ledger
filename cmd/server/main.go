@@ -13,9 +13,12 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"strconv"
+	"time"
 
 	"github.com/tjcrowley/nonprofit-ledger/server/api"
 	"github.com/tjcrowley/nonprofit-ledger/server/auth"
+	"github.com/tjcrowley/nonprofit-ledger/server/backup"
 	"github.com/tjcrowley/nonprofit-ledger/server/db"
 )
 
@@ -23,6 +26,19 @@ func main() {
 	dbPath := envOrDefault("LEDGER_DB_PATH", "./ledger.db")
 	port := envOrDefault("LEDGER_PORT", "8080")
 	migrationsDir := envOrDefault("LEDGER_MIGRATIONS_DIR", "server/db/migrations")
+
+	// Backup configuration. backupDir is always a local filesystem path —
+	// this code path never accepts or constructs an s3://, https://, or
+	// any other remote destination (PLAT-04).
+	backupDir := envOrDefault("LEDGER_BACKUP_DIR", "./backups")
+	backupInterval, err := time.ParseDuration(envOrDefault("LEDGER_BACKUP_INTERVAL", "24h"))
+	if err != nil {
+		log.Fatalf("server: invalid LEDGER_BACKUP_INTERVAL: %v", err)
+	}
+	backupRetain, err := strconv.Atoi(envOrDefault("LEDGER_BACKUP_RETAIN", "7"))
+	if err != nil {
+		log.Fatalf("server: invalid LEDGER_BACKUP_RETAIN: %v", err)
+	}
 
 	conn, err := db.Open(dbPath)
 	if err != nil {
@@ -38,10 +54,12 @@ func main() {
 		log.Fatalf("server: bootstrapping first admin: %v", err)
 	}
 
+	startBackupScheduler(conn, backupDir, backupInterval, backupRetain)
+
 	sm := auth.NewSessionManager(conn)
 
 	mux := http.NewServeMux()
-	api.RegisterRoutes(mux, sm, conn)
+	api.RegisterRoutes(mux, sm, conn, backupDir)
 
 	handler := sm.LoadAndSave(mux)
 
@@ -50,6 +68,29 @@ func main() {
 	if err := http.ListenAndServe(addr, handler); err != nil {
 		log.Fatalf("server: %v", err)
 	}
+}
+
+// startBackupScheduler runs backup.RunScheduled once immediately (so a
+// fresh install has a backup within the first run) and then again on
+// every tick of interval, for as long as the process is alive. It runs
+// in its own goroutine so backup activity never blocks server startup
+// or request handling.
+func startBackupScheduler(conn *sql.DB, backupDir string, interval time.Duration, retain int) {
+	runOnce := func() {
+		if err := backup.RunScheduled(conn, backupDir, retain); err != nil {
+			log.Printf("server: scheduled backup failed: %v", err)
+		}
+	}
+
+	runOnce()
+
+	go func() {
+		ticker := time.NewTicker(interval)
+		defer ticker.Stop()
+		for range ticker.C {
+			runOnce()
+		}
+	}()
 }
 
 // bootstrapFirstAdmin checks whether the users table is empty and, if

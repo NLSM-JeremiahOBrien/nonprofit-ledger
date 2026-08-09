@@ -27,7 +27,7 @@ import (
 //
 // Every route in both groups is wrapped in RequireAuth first — no route
 // registered here is ever reachable without a valid session.
-func RegisterRoutes(mux *http.ServeMux, sm *scs.SessionManager, db *sql.DB) {
+func RegisterRoutes(mux *http.ServeMux, sm *scs.SessionManager, db *sql.DB, backupDir string) {
 	adminOnly := func(next http.Handler) http.Handler {
 		return auth.RequireAuth(sm, db, auth.RequireRole("admin")(next))
 	}
@@ -50,6 +50,10 @@ func RegisterRoutes(mux *http.ServeMux, sm *scs.SessionManager, db *sql.DB) {
 
 	// adminOnlyGroup: org/period-lock settings.
 	mux.Handle("POST /api/org/period-lock", adminOnly(http.HandlerFunc(lockPeriodHandler(db))))
+
+	// adminOnlyGroup: backup health status.
+	backupHandlers := &BackupHandlers{DB: db, BackupDir: backupDir}
+	mux.Handle("GET /api/backup/status", adminOnly(http.HandlerFunc(backupHandlers.BackupStatusHandler)))
 
 	// allRolesGroup: ledger read/write and report routes.
 	mux.Handle("GET /api/reports/trial-balance", allRoles(http.HandlerFunc(trialBalanceHandler(db))))
