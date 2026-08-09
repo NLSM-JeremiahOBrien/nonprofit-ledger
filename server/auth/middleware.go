@@ -53,3 +53,30 @@ func FromContext(ctx context.Context) (CurrentUser, bool) {
 	u, ok := ctx.Value(currentUserKey{}).(CurrentUser)
 	return u, ok
 }
+
+// RequireRole returns middleware that only allows requests through when
+// the CurrentUser stored in the request context (by a preceding
+// RequireAuth) has one of the given roles. It fails closed: if
+// RequireAuth has not run (no CurrentUser in context) or the role isn't
+// in the allowed set, the request is rejected with 403.
+//
+// This is the single, generic place role checks live — callers should
+// never write per-handler "if role != ..." checks; instead compose
+// RequireAuth then RequireRole(allowed...) when registering routes.
+func RequireRole(allowed ...string) func(http.Handler) http.Handler {
+	allowedSet := make(map[string]bool, len(allowed))
+	for _, r := range allowed {
+		allowedSet[r] = true
+	}
+
+	return func(next http.Handler) http.Handler {
+		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+			cu, ok := FromContext(r.Context())
+			if !ok || !allowedSet[cu.Role] {
+				http.Error(w, "forbidden", http.StatusForbidden)
+				return
+			}
+			next.ServeHTTP(w, r)
+		})
+	}
+}
