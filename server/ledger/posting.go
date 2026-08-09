@@ -3,6 +3,8 @@ package ledger
 import (
 	"database/sql"
 	"fmt"
+
+	"github.com/tjcrowley/nonprofit-ledger/server/audit"
 )
 
 // NewLine is a single debit or credit leg of a new journal entry.
@@ -102,6 +104,10 @@ func PostJournalEntry(db *sql.DB, e NewEntry) (int64, error) {
 		if err != nil {
 			return 0, fmt.Errorf("ledger: post journal entry: insert line %d: %w", i, err)
 		}
+	}
+
+	if err := audit.Write(tx, e.PostedBy, "create", "journal_entry", entryID, e.Memo); err != nil {
+		return 0, fmt.Errorf("ledger: post journal entry: %w", err)
 	}
 
 	if err := tx.Commit(); err != nil {

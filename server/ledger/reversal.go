@@ -3,6 +3,8 @@ package ledger
 import (
 	"database/sql"
 	"fmt"
+
+	"github.com/tjcrowley/nonprofit-ledger/server/audit"
 )
 
 // reversalLine is a single journal_lines row read from the original
@@ -71,6 +73,10 @@ func ReverseJournalEntry(tx *sql.Tx, originalID int64, reason string, postedBy i
 		if err != nil {
 			return 0, fmt.Errorf("ledger: inserting reversal line: %w", err)
 		}
+	}
+
+	if err := audit.Write(tx, postedBy, "reversal", "journal_entry", newID, memo); err != nil {
+		return 0, fmt.Errorf("ledger: reverse journal entry: %w", err)
 	}
 
 	return newID, nil

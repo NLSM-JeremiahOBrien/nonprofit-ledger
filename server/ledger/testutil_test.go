@@ -29,6 +29,17 @@ func newTestDB(t *testing.T) *sql.DB {
 		t.Fatalf("newTestDB: run migrations: %v", err)
 	}
 
+	// Existing ledger fixtures hardcode PostedBy/lockedBy as user ID 1
+	// (predating auth). audit_log.actor_user_id now carries a foreign
+	// key to users(id), so seed that row here rather than touching every
+	// call site.
+	if _, err := conn.Exec(
+		`INSERT INTO users (id, username, password_hash, role) VALUES (1, 'seed-user', 'not-a-real-hash', 'admin')`,
+	); err != nil {
+		conn.Close()
+		t.Fatalf("newTestDB: seed user 1: %v", err)
+	}
+
 	t.Cleanup(func() {
 		conn.Close()
 	})

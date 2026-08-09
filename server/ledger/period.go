@@ -4,6 +4,8 @@ import (
 	"database/sql"
 	"fmt"
 	"time"
+
+	"github.com/tjcrowley/nonprofit-ledger/server/audit"
 )
 
 // LockPeriod locks the ledger through throughDate (inclusive): entries
@@ -12,10 +14,20 @@ import (
 // posted ledger row, so it is intentionally NOT subject to the
 // journal_entries/journal_lines immutability triggers — re-locking to a
 // later date to extend the boundary is expected, ordinary usage.
+//
+// The settings write and its audit_log attribution happen in one
+// transaction, matching the atomicity pattern used by PostJournalEntry
+// and ReverseJournalEntry.
 func LockPeriod(db *sql.DB, throughDate string, lockedBy int64) error {
 	lockedAt := time.Now().UTC().Format(time.RFC3339)
 
-	_, err := db.Exec(
+	tx, err := db.Begin()
+	if err != nil {
+		return fmt.Errorf("ledger: lock period: begin tx: %w", err)
+	}
+	defer tx.Rollback()
+
+	_, err = tx.Exec(
 		`INSERT INTO accounting_periods (id, locked_through_date, locked_by, locked_at)
 		 VALUES (1, ?, ?, ?)
 		 ON CONFLICT(id) DO UPDATE SET
@@ -26,6 +38,14 @@ func LockPeriod(db *sql.DB, throughDate string, lockedBy int64) error {
 	)
 	if err != nil {
 		return fmt.Errorf("ledger: lock period: %w", err)
+	}
+
+	if err := audit.Write(tx, lockedBy, "lock_period", "accounting_period", 1, throughDate); err != nil {
+		return fmt.Errorf("ledger: lock period: %w", err)
+	}
+
+	if err := tx.Commit(); err != nil {
+		return fmt.Errorf("ledger: lock period: commit: %w", err)
 	}
 
 	return nil
