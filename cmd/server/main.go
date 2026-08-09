@@ -39,12 +39,9 @@ func main() {
 	}
 
 	sm := auth.NewSessionManager(conn)
-	authHandlers := &api.AuthHandlers{DB: conn, SM: sm}
 
 	mux := http.NewServeMux()
-	mux.HandleFunc("/healthz", api.HealthHandler)
-	mux.HandleFunc("/api/auth/login", authHandlers.LoginHandler)
-	mux.HandleFunc("/api/auth/logout", authHandlers.LogoutHandler)
+	api.RegisterRoutes(mux, sm, conn)
 
 	handler := sm.LoadAndSave(mux)
 
