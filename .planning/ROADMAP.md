@@ -50,7 +50,13 @@ Plans:
   3. Every create/edit/delete action is attributed to the logged-in user in an immutable audit log
   4. The application performs automated local backups on a schedule, with visible backup health status and a documented, tested restore procedure
   5. No financial data or usage telemetry is transmitted to any third party by default
-**Plans**: TBD
+**Plans**: 4 plans
+
+Plans:
+- [ ] 02-01-PLAN.md — Auth core: users table, argon2id password hashing, sessions, login/logout, first-admin bootstrap (AUTH-01, AUTH-04)
+- [ ] 02-02-PLAN.md — User management CRUD + RBAC route groups enforcing external-accountant scope (AUTH-02, AUTH-03)
+- [ ] 02-03-PLAN.md — Immutable audit log wired into posting/reversal/period-lock (AUTH-05)
+- [ ] 02-04-PLAN.md — Automated backup/restore + PLAT-04 offline-isolation and dependency-graph smoke tests (PLAT-03, PLAT-04)
 
 ### Phase 3: Bundled Secure Remote Access
 **Goal**: External accountants can securely connect to the app remotely, with the org never having to configure networking themselves, and remote access never bypassing the app's own RBAC.
@@ -112,7 +118,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Core Ledger & Fund-Accounting Data Model | 4/4 | Complete    | 2026-08-08 |
-| 2. Auth, RBAC & Backup/DR Foundations | 0/TBD | Not started | - |
+| 2. Auth, RBAC & Backup/DR Foundations | 0/4 | Not started | - |
 | 3. Bundled Secure Remote Access | 0/TBD | Not started | - |
 | 4. Import-Adapter Framework + QuickBooks & CiviCRM Adapters | 0/TBD | Not started | - |
 | 5. Reconciliation & Parallel-Run Reporting | 0/TBD | Not started | - |
