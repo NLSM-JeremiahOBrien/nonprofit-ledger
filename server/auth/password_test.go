@@ -43,7 +43,7 @@ func TestPasswordHashUsesRandomSalt(t *testing.T) {
 	}
 }
 
-func TestVerifyPasswordRejectsMalformedHash(t *testing.T) {
+func TestPasswordVerifyRejectsMalformedHash(t *testing.T) {
 	if VerifyPassword("not-a-valid-hash", "anything") {
 		t.Fatal("expected VerifyPassword to return false for malformed hash, not panic or true")
 	}
