@@ -37,10 +37,10 @@
 
 ### Auth & Access
 
-- [ ] **AUTH-01**: User can log in with a username/password to a locally-hosted account
+- [x] **AUTH-01**: User can log in with a username/password to a locally-hosted account
 - [ ] **AUTH-02**: Admin can create and manage user accounts with one of three roles: staff/bookkeeper, admin, external accountant
 - [ ] **AUTH-03**: External accountant role has a default scope narrower than admin (can view/edit ledger and reports, cannot manage users or org settings)
-- [ ] **AUTH-04**: Session persists securely across browser refresh/restart without re-entering credentials constantly
+- [x] **AUTH-04**: Session persists securely across browser refresh/restart without re-entering credentials constantly
 - [ ] **AUTH-05**: Every create/edit/delete action is attributed to the logged-in user in an immutable audit log (who changed what, when)
 
 ### Remote Access
@@ -122,10 +122,10 @@ Which phases cover which requirements. Updated during roadmap creation.
 | FUND-02 | Phase 1 | Complete |
 | FUND-03 | Phase 1 | Complete |
 | PLAT-01 | Phase 1 | Complete |
-| AUTH-01 | Phase 2 | Pending |
+| AUTH-01 | Phase 2 | Complete |
 | AUTH-02 | Phase 2 | Pending |
 | AUTH-03 | Phase 2 | Pending |
-| AUTH-04 | Phase 2 | Pending |
+| AUTH-04 | Phase 2 | Complete |
 | AUTH-05 | Phase 2 | Pending |
 | PLAT-03 | Phase 2 | Pending |
 | PLAT-04 | Phase 2 | Pending |

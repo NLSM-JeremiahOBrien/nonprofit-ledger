@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: verifying
-stopped_at: Completed 01-04-PLAN.md
-last_updated: "2026-08-08T21:57:08.051Z"
-last_activity: "2026-08-08 — Plan 01-04 complete: derived FundBalance/TrialBalance, local webserver entrypoint, PLAT-01 offline network-isolation smoke test verified"
+status: executing
+stopped_at: Completed 02-01-PLAN.md
+last_updated: "2026-08-09T13:42:09.019Z"
+last_activity: "2026-08-09 — Plan 02-01 complete: users table, argon2id password hashing, SQLite-backed sessions, login/logout, RequireAuth middleware, first-admin bootstrap"
 progress:
   total_phases: 7
   completed_phases: 1
-  total_plans: 4
-  completed_plans: 4
-  percent: 100
+  total_plans: 8
+  completed_plans: 5
+  percent: 63
 ---
 
 # Project State
@@ -21,16 +21,16 @@ progress:
 See: .planning/PROJECT.md (updated 2026-08-08)
 
 **Core value:** Nonprofit financial data stays entirely under the organization's own control, on their own hardware, forever, with no dependency on a vendor that can raise prices, get acquired, or discontinue the product.
-**Current focus:** Phase 1 — Core Ledger & Fund-Accounting Data Model
+**Current focus:** Phase 2 — Auth, RBAC, Backup & DR Foundations
 
 ## Current Position
 
-Phase: 1 of 7 (Core Ledger & Fund-Accounting Data Model)
-Plan: 04 of 4 complete
-Status: Phase complete — ready for verification
-Last activity: 2026-08-08 — Plan 01-04 complete: derived FundBalance/TrialBalance, local webserver entrypoint, PLAT-01 offline network-isolation smoke test verified
+Phase: 2 of 7 (Auth, RBAC, Backup & DR Foundations)
+Plan: 01 of 4 complete
+Status: In progress
+Last activity: 2026-08-09 — Plan 02-01 complete: users table, argon2id password hashing, SQLite-backed sessions, login/logout, RequireAuth middleware, first-admin bootstrap
 
-Progress: [██████████] 100%
+Progress: [██████░░░░] 63%
 
 ## Performance Metrics
 
@@ -54,6 +54,7 @@ Progress: [██████████] 100%
 | Phase 01 P02 | 15 | 2 tasks | 5 files |
 | Phase 01 P03 | 10 | 2 tasks | 6 files |
 | Phase 01 P04 | 8min | 3 tasks | 4 files |
+| Phase 02-auth-rbac-backup-dr-foundations P01 | 8min | 3 tasks | 17 files |
 
 ## Accumulated Context
 
@@ -69,6 +70,8 @@ Recent decisions affecting current work:
 - [Phase 01-core-ledger-fund-accounting-data-model]: [Phase 01]: Immutability enforced at SQLite trigger layer (paired BEFORE UPDATE/BEFORE DELETE, one DML event per trigger); ReverseJournalEntry is the sole correction mechanism, never UPDATE/DELETE on posted rows
 - [Phase 01-core-ledger-fund-accounting-data-model]: PostJournalEntry is the single sanctioned entry point for new journal entries, enforcing balance/period-lock/functional-category invariants in one place; accounting_periods is a mutable single-row settings table, explicitly exempt from the append-only immutability triggers
 - [Phase 01-core-ledger-fund-accounting-data-model]: Derived-only fund/GL balances (SUM debit-credit against journal_lines) confirmed at Phase 1 close; PLAT-01 offline network-isolation verified via lsof socket inspection (single LISTEN socket, zero outbound/established connections) as an equivalent proxy to physical airplane-mode testing
+- [Phase 02-auth-rbac-backup-dr-foundations]: Spiked alexedwards/scs/sqlite3store against modernc.org/sqlite before committing; works without CGo, but store expects its table pre-created, so migration 0006 defines the sessions table matching its schema
+- [Phase 02-auth-rbac-backup-dr-foundations]: RequireAuth takes (sm, db, next) explicitly rather than package-level globals, keeping server/auth stateless and test-isolated
 
 ### Pending Todos
 
@@ -83,6 +86,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-08-08T21:53:03.994Z
-Stopped at: Completed 01-04-PLAN.md
+Last session: 2026-08-09T13:42:09.016Z
+Stopped at: Completed 02-01-PLAN.md
 Resume file: None
