@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 02-03-PLAN.md
-last_updated: "2026-08-09T13:48:26.355Z"
-last_activity: "2026-08-09 — Plan 02-03 complete: immutable audit_log (append-only triggers) wired into PostJournalEntry, ReverseJournalEntry, and LockPeriod"
+stopped_at: Completed 02-02-PLAN.md
+last_updated: "2026-08-09T13:50:53.306Z"
+last_activity: "2026-08-09 — Plan 02-02 complete: user CRUD across three fixed roles, RequireRole middleware, and explicit admin-only/all-roles route groups enforcing external-accountant scope"
 progress:
   total_phases: 7
   completed_phases: 1
   total_plans: 8
-  completed_plans: 6
-  percent: 75
+  completed_plans: 8
+  percent: 88
 ---
 
 # Project State
@@ -26,11 +26,11 @@ See: .planning/PROJECT.md (updated 2026-08-08)
 ## Current Position
 
 Phase: 2 of 7 (Auth, RBAC, Backup & DR Foundations)
-Plan: 02 of 4 complete (02-01, 02-03; 02-02 in progress in parallel)
+Plan: 03 of 4 complete (02-01, 02-02, 02-03)
 Status: In progress
-Last activity: 2026-08-09 — Plan 02-03 complete: immutable audit_log (append-only triggers) wired into PostJournalEntry, ReverseJournalEntry, and LockPeriod
+Last activity: 2026-08-09 — Plan 02-02 complete: user CRUD across three fixed roles, RequireRole middleware, and explicit admin-only/all-roles route groups enforcing external-accountant scope
 
-Progress: [████████░░] 75%
+Progress: [█████████░] 88%
 
 ## Performance Metrics
 
@@ -56,6 +56,7 @@ Progress: [████████░░] 75%
 | Phase 01 P04 | 8min | 3 tasks | 4 files |
 | Phase 02-auth-rbac-backup-dr-foundations P01 | 8min | 3 tasks | 17 files |
 | Phase 02-auth-rbac-backup-dr-foundations P03 | 12min | 2 tasks | 8 files |
+| Phase 02 P02 | 12min | 3 tasks | 8 files |
 
 ## Accumulated Context
 
@@ -74,6 +75,8 @@ Recent decisions affecting current work:
 - [Phase 02-auth-rbac-backup-dr-foundations]: Spiked alexedwards/scs/sqlite3store against modernc.org/sqlite before committing; works without CGo, but store expects its table pre-created, so migration 0006 defines the sessions table matching its schema
 - [Phase 02-auth-rbac-backup-dr-foundations]: RequireAuth takes (sm, db, next) explicitly rather than package-level globals, keeping server/auth stateless and test-isolated
 - [Phase 02-auth-rbac-backup-dr-foundations]: audit_log mirrors Phase 1's append-only trigger pattern exactly (paired BEFORE UPDATE/DELETE, RAISE(ABORT)); audit.Write always runs inside the caller's transaction, never its own, so audit rows are atomic with the action they record; LockPeriod was upgraded from a bare db.Exec to its own transaction to support this
+- [Phase 02-auth-rbac-backup-dr-foundations]: server/users never imports server/auth (avoids import cycle); CreateUser takes a pre-hashed password, caller (server/api) calls auth.HashPassword
+- [Phase 02-auth-rbac-backup-dr-foundations]: RequireRole(allowed...) composes with RequireAuth; server/api/routes.go RegisterRoutes is the single place adminOnlyGroup vs allRolesGroup are defined, external_accountant scoped by omission from adminOnlyGroup
 
 ### Pending Todos
 
@@ -88,6 +91,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-08-09T13:42:09.016Z
-Stopped at: Completed 02-03-PLAN.md
+Last session: 2026-08-09T13:50:53.304Z
+Stopped at: Completed 02-02-PLAN.md
 Resume file: None
