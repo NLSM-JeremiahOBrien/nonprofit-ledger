@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 02-02-PLAN.md
-last_updated: "2026-08-09T13:50:53.306Z"
-last_activity: "2026-08-09 — Plan 02-02 complete: user CRUD across three fixed roles, RequireRole middleware, and explicit admin-only/all-roles route groups enforcing external-accountant scope"
+stopped_at: Completed 02-04-PLAN.md
+last_updated: "2026-08-09T14:01:09.711Z"
+last_activity: "2026-08-09 — Plan 02-04 complete: automated backup snapshot/rotation/restore verification, admin-only backup status endpoint, and automated PLAT-04 offline-isolation + no-telemetry-dependency smoke tests, closing out Phase 2"
 progress:
   total_phases: 7
-  completed_phases: 1
+  completed_phases: 2
   total_plans: 8
   completed_plans: 8
-  percent: 88
+  percent: 100
 ---
 
 # Project State
@@ -26,11 +26,11 @@ See: .planning/PROJECT.md (updated 2026-08-08)
 ## Current Position
 
 Phase: 2 of 7 (Auth, RBAC, Backup & DR Foundations)
-Plan: 03 of 4 complete (02-01, 02-02, 02-03)
-Status: In progress
-Last activity: 2026-08-09 — Plan 02-02 complete: user CRUD across three fixed roles, RequireRole middleware, and explicit admin-only/all-roles route groups enforcing external-accountant scope
+Plan: 04 of 4 complete (02-01, 02-02, 02-03, 02-04) — Phase 2 complete
+Status: Phase complete — ready for verification
+Last activity: 2026-08-09 — Plan 02-04 complete: automated backup snapshot/rotation/restore verification, admin-only backup status endpoint, and automated PLAT-04 offline-isolation + no-telemetry-dependency smoke tests, closing out Phase 2
 
-Progress: [█████████░] 88%
+Progress: [██████████] 100%
 
 ## Performance Metrics
 
@@ -57,6 +57,7 @@ Progress: [█████████░] 88%
 | Phase 02-auth-rbac-backup-dr-foundations P01 | 8min | 3 tasks | 17 files |
 | Phase 02-auth-rbac-backup-dr-foundations P03 | 12min | 2 tasks | 8 files |
 | Phase 02 P02 | 12min | 3 tasks | 8 files |
+| Phase 02-auth-rbac-backup-dr-foundations P04 | 35min | 3 tasks | 13 files |
 
 ## Accumulated Context
 
@@ -77,6 +78,7 @@ Recent decisions affecting current work:
 - [Phase 02-auth-rbac-backup-dr-foundations]: audit_log mirrors Phase 1's append-only trigger pattern exactly (paired BEFORE UPDATE/DELETE, RAISE(ABORT)); audit.Write always runs inside the caller's transaction, never its own, so audit rows are atomic with the action they record; LockPeriod was upgraded from a bare db.Exec to its own transaction to support this
 - [Phase 02-auth-rbac-backup-dr-foundations]: server/users never imports server/auth (avoids import cycle); CreateUser takes a pre-hashed password, caller (server/api) calls auth.HashPassword
 - [Phase 02-auth-rbac-backup-dr-foundations]: RequireRole(allowed...) composes with RequireAuth; server/api/routes.go RegisterRoutes is the single place adminOnlyGroup vs allRolesGroup are defined, external_accountant scoped by omission from adminOnlyGroup
+- [Phase 02-auth-rbac-backup-dr-foundations]: RegisterRoutes gains explicit backupDir param; scheduler wiring (env vars, ticker) landed in cmd/server/main.go alongside the Task 2 signature change; backup_runs is a mutable health table (like accounting_periods), explicitly not append-only like audit_log
 
 ### Pending Todos
 
@@ -91,6 +93,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-08-09T13:50:53.304Z
-Stopped at: Completed 02-02-PLAN.md
+Last session: 2026-08-09T14:00:21.547Z
+Stopped at: Completed 02-04-PLAN.md
 Resume file: None

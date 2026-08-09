@@ -13,7 +13,7 @@ Nonprofit Ledger is built from the ground up: an immutable, fund-aware general l
 Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Core Ledger & Fund-Accounting Data Model** - Immutable double-entry GL with fund and functional-expense dimensions as first-class citizens (completed 2026-08-08)
-- [ ] **Phase 2: Auth, RBAC & Backup/DR Foundations** - Scoped user roles, audit logging, automated backups, and no-telemetry-by-default trust guarantees
+- [x] **Phase 2: Auth, RBAC & Backup/DR Foundations** - Scoped user roles, audit logging, automated backups, and no-telemetry-by-default trust guarantees (completed 2026-08-09)
 - [ ] **Phase 3: Bundled Secure Remote Access** - Zero-config remote login for external accountants, layered on finalized RBAC
 - [ ] **Phase 4: Import-Adapter Framework + QuickBooks & CiviCRM Adapters** - Idempotent, previewable import of QuickBooks Desktop/Online data and CiviCRM contribution batches via a documented adapter interface
 - [ ] **Phase 5: Reconciliation & Parallel-Run Reporting** - Comparison reporting to validate this system's books against live QuickBooks
@@ -118,7 +118,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Core Ledger & Fund-Accounting Data Model | 4/4 | Complete    | 2026-08-08 |
-| 2. Auth, RBAC & Backup/DR Foundations | 2/4 | In Progress|  |
+| 2. Auth, RBAC & Backup/DR Foundations | 4/4 | Complete   | 2026-08-09 |
 | 3. Bundled Secure Remote Access | 0/TBD | Not started | - |
 | 4. Import-Adapter Framework + QuickBooks & CiviCRM Adapters | 0/TBD | Not started | - |
 | 5. Reconciliation & Parallel-Run Reporting | 0/TBD | Not started | - |

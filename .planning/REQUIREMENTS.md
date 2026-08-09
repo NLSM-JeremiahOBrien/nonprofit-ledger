@@ -71,8 +71,8 @@
 
 - [x] **PLAT-01**: The application runs as a local webserver on the organization's own hardware, with no required outbound dependency on a third-party cloud service for core accounting functions
 - [ ] **PLAT-02**: The application is installable as a PWA and remains usable (viewing data, drafting entries) during brief network interruptions to the local server
-- [ ] **PLAT-03**: The application performs automated local backups on a schedule, with visible backup health status and a documented, tested restore procedure
-- [ ] **PLAT-04**: The application does not transmit financial data or usage telemetry to any third party by default
+- [x] **PLAT-03**: The application performs automated local backups on a schedule, with visible backup health status and a documented, tested restore procedure
+- [x] **PLAT-04**: The application does not transmit financial data or usage telemetry to any third party by default
 
 ## v2 Requirements
 
@@ -127,8 +127,8 @@ Which phases cover which requirements. Updated during roadmap creation.
 | AUTH-03 | Phase 2 | Complete |
 | AUTH-04 | Phase 2 | Complete |
 | AUTH-05 | Phase 2 | Complete |
-| PLAT-03 | Phase 2 | Pending |
-| PLAT-04 | Phase 2 | Pending |
+| PLAT-03 | Phase 2 | Complete |
+| PLAT-04 | Phase 2 | Complete |
 | REMT-01 | Phase 3 | Pending |
 | REMT-02 | Phase 3 | Pending |
 | REMT-03 | Phase 3 | Pending |
